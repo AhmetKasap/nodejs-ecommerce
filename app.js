@@ -10,6 +10,12 @@ app.set ('view engine', 'ejs')
 app.use(express.static('public'));
 require('dotenv').config()
 
+//* json-web-token
+const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
+
+
 //*database connection
 const mongoose = require('mongoose')
 const dbUrl = process.env.MONGODB_URL
@@ -17,8 +23,6 @@ mongoose.connect(dbUrl).then(res=> console.log("veritabanı bağlantısı kuruld
 
 
 //*routes
-
-
 const basket = require('./routes/basket')
 const admin = require('./routes/admin')
 const addPorduct = require('./routes/addPorduct')

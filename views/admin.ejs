@@ -4,11 +4,11 @@
     <form action="/admin/login" method="POST">
         <div class="mb-3 text-center">
             <label for="exampleInputEmail1" class="form-label text-center">User Name</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="username">
+            <input type="text" class="form-control" id="exampleInputEmail1" name="username" required>
         </div>
         <div class="mb-3 text-center">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" name="userpassword">
+            <input type="password" class="form-control" id="exampleInputPassword1" name="userpassword" required>
         </div>
 
         <div class="text-center">
@@ -16,5 +16,15 @@
         </div>
     </form>
 </div>
+<% if (typeof errMessage === 'undefined') { %>
+    <!-- errMessage tanımlanmadı -->
+<% } else { %>
+    <% if (errMessage) { %>
+        <div class="alert text-center mt-2 fw-bolder" role="alert" style="background-color: rgb(255, 0, 0);">
+            <%= errMessage %>
+        </div>
+    <% } %>
+<% } %>
+
 
 <%- include("partials/footer"); -%>

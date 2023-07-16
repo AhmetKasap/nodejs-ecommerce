@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const Product = require('../models/addProduct')
+const auth = require('../middlewares/auth')
 
 
-router.get('/product', (req,res) => {
+router.get('/product', auth.authenticationToken, (req,res) => {
 
     Product.find()
     .then(product => {

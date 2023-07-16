@@ -2,8 +2,9 @@ const express = require('express')
 const router = express.Router()
 const upload = require('../middlewares/multer')
 const addProduct = require('../models/addProduct')
+const auth = require('../middlewares/auth')
 
-router.get('/addproduct', (req,res) => {
+router.get('/addproduct', auth.authenticationToken, (req,res) => {
     res.render('addproduct')
 })
 
