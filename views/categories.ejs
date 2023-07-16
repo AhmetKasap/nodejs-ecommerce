@@ -1,0 +1,26 @@
+<%- include("partials/header"); -%>
+<%- include("layouts/navbar"); -%>
+
+<div class="text-center">
+  <h1 class="fw-bolder"> <%= categoriesName %> </h1>
+</div>
+
+<div class="row row-cols-md-3 row-cols-1 w-75 mx-auto">
+  <% product.forEach((data) => { %>
+    <% if (data.productCategories == categoriesName) { %>
+      <% const pathImg = data.productPhoto.path; %>
+      <% const splitPath = pathImg.substring(pathImg.indexOf('public') + 'public'.length); %>
+      <div class="col">
+        <img src="<%= splitPath %>" class="img-fluid mt-5 mb-2" alt="...">
+        <p class="text-dark"><%= data.productName %></p>
+        <button class="btn btn-outline-success">Sepete Ekle</button>
+        <span class="text-dark float-end fs-5"><%= data.productPrice %> TL</span>
+      </div>
+    <% } %>
+  <% }) %>
+</div>
+
+<%- include("layouts/footer"); -%>
+<%- include("partials/footer"); -%>
+
+

@@ -10,7 +10,6 @@ require('dotenv').config()
 
 router.get('/basket', (req,res) => {
     res.render('basket')
-
 })
 
 router.post('/order', (req,res) => {

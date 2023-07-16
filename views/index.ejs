@@ -1,33 +1,30 @@
 <%- include("partials/header"); -%>
 <%- include("layouts/navbar"); -%>
 
-  <div class="row row-cols-md-3 row-cols-1 w-75 mx-auto">
-    <div class="col">
-      <img src="img/3.jpg" class="img-fluid mt-5 mb-2" alt="...">
-      <p class="text-dark">Lorem ipsum sit dolar amet.</p>
-      <button class="btn btn-outline-success">Sepete Ekle</button>
-      <span class="text-dark float-end fs-5">500 TL</span>
-    </div>
-
-    <div class="col">
-      <img src="img/1.jpg" class="img-fluid mt-5 mb-2" alt="...">
-      <p class="text-dark">Lorem ipsum sit dolar amet.</p>
-      <button class="btn btn-outline-success">Sepete Ekle</button>
-      <span class="text-dark float-end fs-5">500 TL</span>
-    </div>
-
-    <div class="col">
-      <img src="img/2.jpg" class="img-fluid mt-5 mb-2" alt="...">
-      <p class="text-dark">Lorem ipsum sit dolar amet.</p>
-      <button class="btn btn-outline-success">Sepete Ekle</button>
-      <span class="text-dark float-end fs-5">500 TL</span>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="d-flex w-25 mx-auto">
+    <ul class="list-inline mx-auto small fw-bolder">
+      <li class="list-inline-item "><a class="nav-link" href="/categroies/T-Shirts">T-Shirts</a></li>
+      <li class="list-inline-item "><a class="nav-link" href="/categroies/Shorts">Shorts</a></li>
+      <li class="list-inline-item "><a class="nav-link" href="/categroies/Jeans">Jeans</a></li>
+      <li class="list-inline-item "><a class="nav-link" href="/categroies/Shirts">Shirts</a></li>
+    </ul>
   </div>
+</nav>
 
- 
-
-
-
+  <div class="row row-cols-md-3 row-cols-1 w-75 mx-auto">
+    <% product.map((data,index) => { %>
+      <% const pathImg = data.productPhoto.path; %>
+      <% const splitPath = pathImg.substring(pathImg.indexOf('public') + 'public'.length); %>
+      <div class="col">
+        <img src="<%=splitPath %>" class="img-fluid mt-5 mb-2" alt="...">
+        <p class="text-dark"><%=data.productName %></p>
+        <button class="btn btn-outline-success">Sepete Ekle</button>
+        <span class="text-dark float-end fs-5"><%=data.productPrice %> TL</span>
+      </div>
+    <% }) %>
+  </div>
+  
   <%- include("layouts/footer"); -%>
   <%- include("partials/footer"); -%>
 

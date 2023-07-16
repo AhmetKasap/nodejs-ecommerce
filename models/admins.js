@@ -5,6 +5,7 @@ const adminSchema = new mongoose.Schema({
     userpassword : {type: String, require:true}
 })
 
-const AdminPost = mongoose.model('ADMINPOST', adminSchema)
 
-module.exports = AdminPost
+const AdminInfo = mongoose.model('ADMIN', adminSchema)
+
+module.exports = AdminInfo

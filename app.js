@@ -17,14 +17,21 @@ mongoose.connect(dbUrl).then(res=> console.log("veritabanı bağlantısı kuruld
 
 
 //*routes
-app.get('/', (req,res) => {
-    res.render('index')
-})
+
 
 const basket = require('./routes/basket')
 const admin = require('./routes/admin')
+const addPorduct = require('./routes/addPorduct')
+const categories = require('./routes/categories')
+const product = require('./routes/product')
+const index = require('./routes/index')
 app.use(basket)
 app.use(admin)
+app.use(addPorduct)
+app.use(categories)
+app.use(product)
+app.use(index)
+
 
 
 

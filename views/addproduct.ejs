@@ -1,0 +1,55 @@
+<%- include("partials/header"); -%>
+    <div class="w-25 mx-auto mt-5" >
+        <form action="/addproduct" method="POST" class="tex-center" enctype="multipart/form-data">
+            <div class="mb-3 text-center">
+                <label for="ss" class="form-label text-center fw-bolder">Ürün Adı</label>
+                <input class="form-control" placeholder="" id="ss" name="productName" required/>
+            </div>
+            <div class="mb-3 text-center">
+                <label for="ss" class="form-label text-center fw-bolder">Ürün Fiyatı</label>
+                <input type="number" class="form-control" placeholder="" id="ss" name="productPrice" required/>
+            </div>
+
+
+            <div class="text-center">
+                <label for="ssa" class="form-label text-center fw-bolder">Ürün Kategorisi</label>
+            </div>
+
+                <div class="radioform">
+                  <div class="form-check" id="ssa">
+                    <input type="radio" class="form-check-input" id="radio1" name="productCategories" value="T-Shirts" checked>
+                    <label class="form-check-label" for="radio1">T-Shirts</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio2" name="productCategories" value="Shorts">
+                    <label class="form-check-label" for="radio2">Shorts</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio3" name="productCategories" value="Jeans">
+                    <label class="form-check-label" for="radio3">Jeans</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio4" name="productCategories" value="Shirts">
+                    <label class="form-check-label" for="radio4">Shirts</label>
+                </div>
+
+                </div>
+           
+          <br>
+             
+            
+           
+
+            <div class="mb-3 text-center"> 
+                <input class="" type="file" id="ds" name="image" required enctype="multipart/form-data">
+            </div>
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-outline-success ">Ekle </button>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <%- include("partials/footer"); -%>
+
+
