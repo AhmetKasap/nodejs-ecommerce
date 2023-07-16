@@ -21,6 +21,10 @@ const mongoose = require('mongoose')
 const dbUrl = process.env.MONGODB_URL
 mongoose.connect(dbUrl).then(res=> console.log("veritabanı bağlantısı kuruldu")).catch(err=> console.log("veri tabanı bağlantı hatası"))
 
+//*methodOverride
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'))
+
 
 //*routes
 const basket = require('./routes/basket')

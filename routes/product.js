@@ -12,7 +12,20 @@ router.get('/product', auth.authenticationToken, (req,res) => {
     })
     .catch(err => {console.log(err)})
 
-    
 })
 
+
+router.get('/delete/:id', (req, res) => {
+    const id = req.params.id;
+    Product.findByIdAndDelete(id)
+        .then(result => {
+            res.redirect('/product');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
 module.exports = router
+
+
+
