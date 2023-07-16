@@ -9,7 +9,6 @@ router.get('/addproduct', auth.authenticationToken, (req,res) => {
 })
 
 router.post('/addproduct', upload.single('image'), (req,res) => {
-    console.log(req.file.filename)
     
     const addproduct = new addProduct({
         productName : req.body.productName,
