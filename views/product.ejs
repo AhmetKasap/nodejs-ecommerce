@@ -20,6 +20,8 @@
                 </tr>
             </thead>
 
+          
+
             <tbody>
                 <% product.map((data,index) => { %>
                     <% const pathImg = data.productPhoto.path; %>
@@ -67,24 +69,27 @@
                                                 <td>
                                                     <div class="radioform">
                                                         <div class="form-check" id="ssa">
-                                                          <input type="radio" class="form-check-input" id="radio1" name="productCategories" value="T-Shirts" checked>
+                                                          <input type="radio" class="form-check-input" id="radio1" name="productCategories" value="T-Shirts" <% if (data.productCategories === 'T-Shirts') { %> checked <% } %>>
                                                           <label class="form-check-label" for="radio1">T-Shirts</label>
                                                       </div>
                                                       <div class="form-check">
-                                                          <input type="radio" class="form-check-input" id="radio2" name="productCategories" value="Shorts">
+                                                          <input type="radio" class="form-check-input" id="radio2" name="productCategories" value="Shorts" <% if (data.productCategories === 'Shorts') { %> checked <% } %>>
                                                           <label class="form-check-label" for="radio2">Shorts</label>
                                                       </div>
                                                       <div class="form-check">
-                                                          <input type="radio" class="form-check-input" id="radio3" name="productCategories" value="Jeans">
+                                                          <input type="radio" class="form-check-input" id="radio3" name="productCategories" value="Jeans" <% if (data.productCategories === 'Jeans') { %> checked <% } %>>
                                                           <label class="form-check-label" for="radio3">Jeans</label>
                                                       </div>
                                                       <div class="form-check">
-                                                          <input type="radio" class="form-check-input" id="radio4" name="productCategories" value="Shirts">
+                                                          <input type="radio" class="form-check-input" id="radio4" name="productCategories" value="Shirts" <% if (data.productCategories === 'Shirts') { %> checked <% } %>>
                                                           <label class="form-check-label" for="radio4">Shirts</label>
                                                       </div>
                                                       </div>
                                                 </td>
-                                                <td><input class="form-control" type="file" id="ds" name="image" required enctype="multipart/form-data"></td>
+                                                <td>
+                                                    <input class="form-control" type="file" id="ds" name="image" required enctype="multipart/form-data">
+                                                   
+                                                </td>
                                             </tr>
                                           </tbody>
                                     </table>
@@ -99,8 +104,6 @@
                                 
                             </form>
                               
-                              
-                           
                         </td>
                     </tr>
                 <% }) %>
