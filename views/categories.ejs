@@ -13,7 +13,7 @@
       <div class="col">
         <img src="<%= splitPath %>" class="img-fluid mt-5 mb-2" alt="...">
         <p class="text-dark"><%= data.productName %></p>
-        <button class="btn btn-outline-success">Sepete Ekle</button>
+        <a href="/productId/<%= data._id %>?_method=GET" class="btn btn-outline-success">Sepete Ekle</a>
         <span class="text-dark float-end fs-5"><%= data.productPrice %> TL</span>
       </div>
     <% } %>

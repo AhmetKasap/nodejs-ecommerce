@@ -3,14 +3,33 @@ const router = express.Router()
 
 
 const Iyzipay = require('iyzipay');
-
 require('dotenv').config()
+
+
  
 
 
 router.get('/basket', (req,res) => {
     res.render('basket')
 })
+
+
+var products = []
+
+router.get('/productId/:id', (req, res) => {
+    const id = req.params.id
+    console.log(id)
+    
+
+    Product.findById(id)
+    .then(data => {
+        products.push(data)
+        res.render('basket', {products:products})
+       
+    })
+
+});
+
 
 router.post('/order', (req,res) => {
     const username = req.body.username
