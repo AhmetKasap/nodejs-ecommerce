@@ -6,22 +6,24 @@
 
 <div class="w-25 mx-auto mb-5 mt-3">
   <div class="card">
-      <h5 class="card-header">Sepetin</h5>
-      <div class="card-body">
-        <% if (typeof products === 'undefined') { %>
-          <p class="card-text">Ürün: Sepetiniz Boş</p>
-        <% } else { %>
-          <% let total = 0; %>
-          <% products.map(data => { %>
-            <% total = data.productPrice + total; %>
-            <p class="card-text">Ürün: <%= data.productName %> Ürün Fiyatı: <%= data.productPrice %> TL</p>
-          <% }) %>
-          <p>Toplam Fiyat: <%= total %> TL</p>
-        <% } %>
-        
-    
-      </div>
+    <h5 class="card-header">Sepetin</h5>
+    <div class="card-body">
+      <% if (typeof products === 'undefined') { %>
+        <p class="card-text">Ürün: Sepetiniz Boş</p>
+      <% } else { %>
+        <% let total = 0; %>
+        <% products.map(data => { %>
+          <% total += parseInt(data.productPrice); %>
+          <p class="card-text">Ürün: <%= data.productName %> Ürün Fiyatı: <%= data.productPrice %> TL</p>
+        <% }) %>
+        <p>Toplam Fiyat: <%= total %> TL</p>
+      <% } %>
     </div>
+    <div class="card-footer text-center">
+      <a href="/clearbasket?_method=GET" class="btn btn-outline-danger">Sepeti Boşalt</a>
+    </div>
+  </div>
+  
 </div>
     
     <div class="w-50 mx-auto">

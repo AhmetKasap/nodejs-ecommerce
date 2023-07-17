@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const Product = require('../models/addProduct')
 
 
 const Iyzipay = require('iyzipay');
@@ -8,15 +9,15 @@ require('dotenv').config()
 
  
 
+var products = []
 
 router.get('/basket', (req,res) => {
-    res.render('basket')
+    res.render('basket', {products:products})
 })
 
 
-var products = []
 
-router.get('/productId/:id', (req, res) => {
+router.get('/basket/:id', (req, res) => {
     const id = req.params.id
     console.log(id)
     
@@ -24,11 +25,16 @@ router.get('/productId/:id', (req, res) => {
     Product.findById(id)
     .then(data => {
         products.push(data)
-        res.render('basket', {products:products})
-       
+        res.redirect('/basket')
     })
 
 });
+
+router.get('/clearbasket', (req,res) => {
+    products.splice(0,products.length)
+    res.redirect('/basket')
+})
+
 
 
 router.post('/order', (req,res) => {
