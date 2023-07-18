@@ -1,17 +1,65 @@
 <%- include("partials/header"); -%>
-<%- include("layouts/navbar"); -%>
 
-<div>
+<div class="w-50 mx-auto">
+
+  <div class="text-center mt-3 mb-3">
+    <h1>Güncel Siparişler</h1>
+  </div>  
+
+
+  
     
-      <div>
-        <% customerInfos.map(data => { %>
-          <p><%= data %></p>
-        <% }) %>
+    <% customerInfos.map((data,index) => { %>
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Sipariş <%= index + 1%>
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="userInfo">
+                <h5>Kullanıcı Bilgileri</h5>
+                <p>Ad : <%= data.username%></p>
+                <p>Soyad : <%= data.usersurname%></p>
+                <p>Email : <%= data.useremail%></p>
+                <p>Telefon : <%= data.userphone%></p>
+                <p>Adres : <%= data.useradress%></p>
+    
+              </div>
+              <div class="productInfo">
+                <h5>Ürünler</h5>
+                <p><%=data.productName%></p>
+                <% let totalPrice = data.productPrice; %>
+                <% let total = 0; %>
+                <% for (let i = 0; i < totalPrice.length; i++) { %>
+                  <% total = totalPrice[i] + total; %>
+                <% } %>
+                <p>Toplam Fiyat : <%=total%> TL</p>
+                
+    
+              </div>
+
+              <div class="text-center">
+                <button class="btn btn-outline-success">Kargoya Verildi Olarak İşaretle ve Kullanıcıyı Bilgilendirmek İçin Otomatik Mail Gönder</button>
+                <button class="btn btn-outline-danger">Ürünü Teslim Edildi Olarak İşaretle</button>
+
+              </div>
+              
+            </div>
+          </div>
+        </div>
       </div>
-      
+        
+    <% }); %>
+  
+  
+
+  
+  
 </div>
 
 
 
-<%- include("layouts/footer"); -%>
 <%- include("partials/footer"); -%>
