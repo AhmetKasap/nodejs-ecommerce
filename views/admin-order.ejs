@@ -1,0 +1,17 @@
+<%- include("partials/header"); -%>
+<%- include("layouts/navbar"); -%>
+
+<div>
+    
+      <div>
+        <% customerInfos.map(data => { %>
+          <p><%= data %></p>
+        <% }) %>
+      </div>
+      
+</div>
+
+
+
+<%- include("layouts/footer"); -%>
+<%- include("partials/footer"); -%>

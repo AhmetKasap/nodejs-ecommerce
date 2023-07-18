@@ -27,19 +27,10 @@ app.use(methodOverride('_method'))
 
 
 //*routes
-const basket = require('./routes/basket')
 const admin = require('./routes/admin')
-const addPorduct = require('./routes/addPorduct')
-const categories = require('./routes/categories')
-const product = require('./routes/product')
-const index = require('./routes/index')
-app.use(basket)
+const customer = require('./routes/customer')
 app.use(admin)
-app.use(addPorduct)
-app.use(categories)
-app.use(product)
-app.use(index)
-
+app.use(customer)
 
 
 

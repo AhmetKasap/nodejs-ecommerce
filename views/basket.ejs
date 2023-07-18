@@ -16,11 +16,17 @@
           <% total += parseInt(data.productPrice); %>
           <p class="card-text">Ürün: <%= data.productName %> Ürün Fiyatı: <%= data.productPrice %> TL</p>
         <% }) %>
-        <p>Toplam Fiyat: <%= total %> TL</p>
+        <p>Toplam Fiyat: <%= total %> TL</p>        
       <% } %>
     </div>
+    
     <div class="card-footer text-center">
-      <a href="/clearbasket?_method=GET" class="btn btn-outline-danger">Sepeti Boşalt</a>
+      <% if (products.some(data => data.length !== 0)) { %>
+      <a href="/clearbasket?_method=GET" class="btn btn-outline-danger ">Sepeti Boşalt</a>
+      <% } else { %>
+        <a href="/clearbasket?_method=GET" class="btn btn-outline-danger disabled">Sepeti Boşalt</a>
+      <% } %>
+
     </div>
   </div>
   
@@ -33,53 +39,58 @@
                     <p class="text-info fs-4">Kişisel Bilgiler</p>
                     <div class="mb-3">
                         <label for="name" class="form-label" >Ad</label>
-                        <input type="text" class="form-control" id="name" name="username">
+                        <input type="text" class="form-control" id="name" name="username" required>
                     </div>
                     <div class="mb-3">
                         <label for="surname" class="form-label">Soyad</label>
-                        <input type="text" class="form-control" id="surname" name="surname">
+                        <input type="text" class="form-control" id="surname" name="usersurname" required>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="exampleInputEmail1"
-                            aria-describedby="emailHelp" name="useremail">
+                            aria-describedby="emailHelp" name="useremail" required>
                     </div>
                     <div class="mb-3">
                       <label for="ss" class="form-label">Telefon No</label>
-                      <input type="text" class="form-control" id="ss" name="userphone" placeholder="0 999 999 99 99" oninput="restrictInput(this)">
+                      <input type="text" class="form-control" id="ss" name="userphone" required placeholder="0 999 999 99 99" oninput="restrictInput(this)">
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Adres Bilgileri</label>
                       <input type="text" class="form-control" id="exampleInputEmail1"
-                          aria-describedby="emailHelp" name="useradress" placeholder="Şehir / İlçe / Sokak / Bina">
+                          aria-describedby="emailHelp" name="useradress" placeholder="Şehir / İlçe / Sokak / Bina" required>
                   </div>
                 </div>
                 <div class="col-md-6">
                     <p class="text-info fs-4">Kart Bilgileri</p>
                     <div class="mb-3">
                         <label for="cardName" class="form-label">Kart Üzerinde Yazan İsim</label>
-                        <input type="tel" class="form-control" id="cardName" name="cardname">
+                        <input type="tel" class="form-control" id="cardName" name="cardname" required>
                     </div>
                     <div class="mb-3">
                       <label for="ss" class="form-label">Kart Numarası</label>
-                      <input type="text" class="form-control" id="ss" name="cardnumber" placeholder="" oninput="restrictInputCardNumber(this)">
+                      <input type="text" class="form-control" id="ss" name="cardnumber" required placeholder="" oninput="restrictInputCardNumber(this)">
                     </div>
                     <div class="mb-3">
                       <label for="ss" class="form-label">Günvenlik Kodu</label>
-                      <input type="text" class="form-control" id="ss" name="cardcvv" placeholder="" oninput="restrictInputCardCvv(this)">
+                      <input type="text" class="form-control" id="ss" name="cardcvv" required placeholder="" oninput="restrictInputCardCvv(this)">
                     </div>
                     <div class="mb-3">
                       <label for="ss" class="form-label">Son Kullanma Tarihi</label>
-                      <input type="text" class="form-control" id="ss" name="carddate" placeholder="" oninput="restrictInputCardDate(this)">
+                      <input type="text" class="form-control" id="ss" name="carddate" required placeholder="" oninput="restrictInputCardDate(this)">
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary mx-auto d-block">Siparişi Tamamla</button>
+            <% if (products.some(data => data.length !== 0)) { %>
+              <button type="submit" class="btn btn-primary mx-auto d-block">Siparişi Tamamla</button>
+            <% } else { %>
+              <button type="submit" class="btn btn-primary mx-auto d-block disabled">Siparişi Tamamla</button>
+            <% } %>
+            
         </form>
     </div>
 
 
-
+    
     
 
 

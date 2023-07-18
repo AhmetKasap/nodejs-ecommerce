@@ -1,37 +1,20 @@
 const express = require('express')
 const router = express.Router()
-const Admin = require('../models/admins')
-const jwt = require('jsonwebtoken')
+const admin = require('../controllers/admin')
+const auth = require('../middlewares/auth')
+const upload = require('../middlewares/multer')
 
 
-router.get('/admin', (req,res) => {
-    res.render('admin')
-})
+router.get('/admin', admin.getAdmin)
+router.post('/admin/login', admin.postLogin);
 
-const createToken = async(id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn:'1d'})
-}
+router.get('/addproduct', auth.authenticationToken, admin.getAddProduct)
+router.post('/addproduct', upload.single('image'), admin.postAddProduct)
 
+router.get('/product', auth.authenticationToken, admin.getProduct)
+router.get('/delete/:id', admin.getDeleteProduct);
+router.post('/update/:id', upload.single('image'), admin.postUpdateProduct)
 
-
-router.post('/admin/login', async (req, res) => {
-    console.log(req.body.username);
-    console.log(req.body.userpassword);
-
-    const admin = await Admin.findOne({username : req.body.username})
-    if(admin && admin.userpassword === req.body.userpassword){
-        //* token oluşturma ve cookie kaydetme
-        const token = await createToken(admin._id)
-        res.cookie('jsonwebtoken', token, {httpOnly : true, maxAge : 1000*60*60*24})
-        res.redirect('/product')
-    }
-    else{
-        console.log("giriş hatalı")
-        const errMessage = "Hatalı Girdiniz Lütfen Tekrar Deneyiniz."
-        res.render('admin', {errMessage : errMessage})
-    }
-   
-
-});
+router.get('/adminOrder',auth.authenticationToken, admin.getAdminOrder)
 
 module.exports = router

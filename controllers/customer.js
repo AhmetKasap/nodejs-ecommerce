@@ -1,23 +1,34 @@
-const express = require('express')
-const router = express.Router()
-const Product = require('../models/addProduct')
+const Product = require('../models/product')
+const CustomerInfo = require('../models/customerInfo')
+
+const getIndex = (req,res) => {
+    
+    Product.find()
+    .then(product => {
+        res.render('index', {product:product} )
+    })
+    .catch(err => {console.log(err)})
+}
 
 
-const Iyzipay = require('iyzipay');
-require('dotenv').config()
+const getCategories = (req,res) => {
+    const categoriesName = req.params.categoriesName
 
+    Product.find()
+    .then(product => {
+        res.render('categories', {product : product, categoriesName: categoriesName})
+    })
+}
 
- 
 
 var products = []
 
-router.get('/basket', (req,res) => {
+const getBasket = (req,res) => {
     res.render('basket', {products:products})
-})
+    
+}
 
-
-
-router.get('/basket/:id', (req, res) => {
+const getProductId = (req, res) => {
     const id = req.params.id
     console.log(id)
     
@@ -28,15 +39,42 @@ router.get('/basket/:id', (req, res) => {
         res.redirect('/basket')
     })
 
-});
+}
 
-router.get('/clearbasket', (req,res) => {
+const getClearBasket = (req,res) => {
     products.splice(0,products.length)
     res.redirect('/basket')
-})
+}
+
+const postOrder = (req,res) => {
+    console.log(products)
+    
+    const customerInfo = new CustomerInfo ({
+        username : req.body.username,
+        usersurname : req.body.usersurname,
+        useremail : req.body.useremail,
+        userphone : req.body.userphone,
+        useradress : req.body.useradress,
+        cardname : req.body.cardname,
+        cardnumber : req.body.cardnumber,
+        cardcvv : req.body.cardcvv,
+        carddate : req.body.carddate,
+
+       
+        productName: products.map(data => data.productName),
+        productPrice: products.map(data => data.productPrice)
+
+    })
+    customerInfo.save()
+    
+}
 
 
 
+
+/*
+const Iyzipay = require('iyzipay');
+require('dotenv').config()
 router.post('/order', (req,res) => {
     const username = req.body.username
     const surname = req.body.surname
@@ -140,5 +178,10 @@ router.post('/order', (req,res) => {
 
 
 })
+*/
 
-module.exports = router
+
+
+module.exports = {
+    getIndex, getCategories, getBasket,getProductId,getClearBasket,postOrder
+}
