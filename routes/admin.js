@@ -16,5 +16,7 @@ router.get('/delete/:id', admin.getDeleteProduct);
 router.post('/update/:id', upload.single('image'), admin.postUpdateProduct)
 
 router.get('/adminOrder',auth.authenticationToken, admin.getAdminOrder)
+router.get('/sendMail/:id',  admin.sendMail)
+router.get('/addArchive/:id', admin.addArchive)
 
 module.exports = router

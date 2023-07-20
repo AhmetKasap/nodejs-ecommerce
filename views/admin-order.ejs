@@ -6,18 +6,15 @@
     <h1>Güncel Siparişler</h1>
   </div>  
 
-
-  
-    
     <% customerInfos.map((data,index) => { %>
       <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <div class="accordion-item ">
+          <h2 class="accordion-header ">
+            <button class="accordion-button  text-primary bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne<%=index + 1%>" aria-expanded="true" aria-controls="collapseOne<%=index + 1%>">
               Sipariş <%= index + 1%>
             </button>
           </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div id="collapseOne<%=index + 1%>" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
             <div class="accordion-body">
               <div class="userInfo">
                 <h5>Kullanıcı Bilgileri</h5>
@@ -38,28 +35,66 @@
                 <% } %>
                 <p>Toplam Fiyat : <%=total%> TL</p>
                 
-    
               </div>
+              <hr>
 
               <div class="text-center">
-                <button class="btn btn-outline-success">Kargoya Verildi Olarak İşaretle ve Kullanıcıyı Bilgilendirmek İçin Otomatik Mail Gönder</button>
-                <button class="btn btn-outline-danger">Ürünü Teslim Edildi Olarak İşaretle</button>
+                <a href="/sendMail/<%=data._id%>?_method=GET" class="btn btn-outline-success">Kargoya Verildi Olarak İşaretle ve Kullanıcıyı Bilgilendirmek İçin Otomatik Mail Gönder</a>
+                <a href="/addArchive/<%=data._id%>?_method=DELETE" class="btn btn-outline-danger">Ürünü Teslim Edildi Olarak İşaretle</a>
 
               </div>
-              
             </div>
           </div>
         </div>
       </div>
         
     <% }); %>
-  
-  
-
-  
+    
+    <div class="text-center mt-5 mb-3">
+      <h1>Tamamlanmış Siparişler</h1>
+    </div> 
+    <% if (typeof archiveCustomerData !== 'undefined') { %>
+      <% archiveCustomerData.map((data,index) => { %>
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item ">
+            <h2 class="accordion-header ">
+              <button class="accordion-button  text-primary bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOnes<%=index + 1%>" aria-expanded="true" aria-controls="collapseOne<%=index + 1%>">
+                Sipariş <%= index + 1%>
+              </button>
+            </h2>
+            <div id="collapseOnes<%=index + 1%>" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="userInfo">
+                  <h5>Kullanıcı Bilgileri</h5>
+                  <p>Ad : <%= data.username%></p>
+                  <p>Soyad : <%= data.usersurname%></p>
+                  <p>Email : <%= data.useremail%></p>
+                  <p>Telefon : <%= data.userphone%></p>
+                  <p>Adres : <%= data.useradress%></p>
+      
+                </div>
+                <div class="productInfo">
+                  <h5>Ürünler</h5>
+                  <p><%=data.productName%></p>
+                  <% let totalPrice = data.productPrice; %>
+                  <% let total = 0; %>
+                  <% for (let i = 0; i < totalPrice.length; i++) { %>
+                    <% total = totalPrice[i] + total; %>
+                  <% } %>
+                  <p>Toplam Fiyat : <%=total%> TL</p>
+                  
+      
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+          
+      <% }); %>
+      
+    <% } %>
   
 </div>
-
-
 
 <%- include("partials/footer"); -%>

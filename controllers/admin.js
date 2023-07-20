@@ -1,6 +1,9 @@
 const Admin = require('../models/admins')
 const Product = require('../models/product')
 const CustomerInfo = require('../models/customerInfo')
+const ArchiveCustomerData = require('../models/archiveCustomerData')
+const nodemailer = require("nodemailer");
+
 
  
 
@@ -104,19 +107,74 @@ const postUpdateProduct = (req,res) => {
 
 }
 
-const getAdminOrder = (req,res) => {
+const getAdminOrder = async (req,res) => {
+    const customerInfos = await CustomerInfo.find()
+    const archiveCustomerData = await ArchiveCustomerData.find()
+    res.render('admin-order', {customerInfos:customerInfos, archiveCustomerData:archiveCustomerData})
     
-    CustomerInfo.find()
-    .then(customerInfos => {
-        res.render('admin-order', {customerInfos : customerInfos})
+}
+
+
+const sendMail = async (req,res) => {
+    const id = req.params.id
+
+    const customerData = await CustomerInfo.findOne({_id : id})
+
+    const transporter = await nodemailer.createTransport({
+        service:'gmail',
+        auth : {
+            user : 'ahmetkaasap@gmail.com',
+            pass : process.env.MAIL_PASSWORD_KEY
+        }
     })
+
+    const mailOptions = await {
+        from : "ahmetkaasap@gmail.com",
+        to : customerData.useremail,
+        subject : 'Siparişiniz Alındı',
+        text : 'Siparişiniz başarıyla alındı ve kargoya verildi. Aşağıdaki koddan kargo takibi yapabilirsiniz.'
+    }
+
+    transporter.sendMail(mailOptions)
+
+
+
+}
+
+const addArchive = async (req,res) => {
+
+    const id = req.params.id;
+    customerData = await CustomerInfo.findOne({_id : id})
+    console.log(customerData)
+    const archiveCustomerData = new ArchiveCustomerData({
+        username : customerData.username,
+        usersurname : customerData.usersurname,
+        useremail : customerData.useremail,
+        userphone : customerData.userphone,
+        useradress : customerData.useradress,
+        cardname : customerData.cardname,
+        cardnumber : customerData.cardnumber,
+        cardcvv : customerData.cardcvv,
+        carddate : customerData.carddate,
+       
+        productName: customerData.productName,
+        productPrice: customerData.productPrice
+    })
+    archiveCustomerData.save()
+
+    await CustomerInfo.findByIdAndDelete(id)
+        .then(result => {
+            res.redirect('/adminOrder');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
 }
 
 
 
 
-
-
 module.exports = {
-    getAdmin, postLogin, getAddProduct, postAddProduct, getProduct,getDeleteProduct,postUpdateProduct,getAdminOrder
+    getAdmin, postLogin, getAddProduct, postAddProduct, getProduct,getDeleteProduct,postUpdateProduct,getAdminOrder, sendMail, addArchive
 }
