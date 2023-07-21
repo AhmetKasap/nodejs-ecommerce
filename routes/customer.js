@@ -10,7 +10,7 @@ router.get('/categories/:categoriesName', customer.getCategories)
 router.get('/basket', customer.getBasket)
 router.get('/basket/:id', customer.getProductId);
 router.get('/clearbasket', customer.getClearBasket)
-router.post('/order', customer.postOrder)
+router.post('/iyzico', customer.iyzicoTransaction)
 
 
 module.exports = router

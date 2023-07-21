@@ -32,10 +32,9 @@
   
 </div>
     
-    <div class="w-50 mx-auto">
-        <form action="/order" method="POST">
-            <div class="row">
-                <div class="col-md-6">
+    <div class="w-25 mx-auto">
+        <form action="/iyzico" method="POST">
+            
                     <p class="text-info fs-4">Kişisel Bilgiler</p>
                     <div class="mb-3">
                         <label for="name" class="form-label" >Ad</label>
@@ -55,31 +54,15 @@
                       <input type="text" class="form-control" id="ss" name="userphone" required placeholder="0 999 999 99 99" oninput="restrictInput(this)">
                     </div>
                     <div class="mb-3">
+                      <label for="ss" class="form-label">Şehir</label>
+                      <input type="text" class="form-control" id="ss" name="usercity" required placeholder="Şehir" >
+                    </div>
+                    <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Adres Bilgileri</label>
                       <input type="text" class="form-control" id="exampleInputEmail1"
                           aria-describedby="emailHelp" name="useradress" placeholder="Şehir / İlçe / Sokak / Bina" required>
                   </div>
-                </div>
-                <div class="col-md-6">
-                    <p class="text-info fs-4">Kart Bilgileri</p>
-                    <div class="mb-3">
-                        <label for="cardName" class="form-label">Kart Üzerinde Yazan İsim</label>
-                        <input type="tel" class="form-control" id="cardName" name="cardname" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="ss" class="form-label">Kart Numarası</label>
-                      <input type="text" class="form-control" id="ss" name="cardnumber" required placeholder="" oninput="restrictInputCardNumber(this)">
-                    </div>
-                    <div class="mb-3">
-                      <label for="ss" class="form-label">Günvenlik Kodu</label>
-                      <input type="text" class="form-control" id="ss" name="cardcvv" required placeholder="" oninput="restrictInputCardCvv(this)">
-                    </div>
-                    <div class="mb-3">
-                      <label for="ss" class="form-label">Son Kullanma Tarihi</label>
-                      <input type="text" class="form-control" id="ss" name="carddate" required placeholder="" oninput="restrictInputCardDate(this)">
-                    </div>
-                </div>
-            </div>
+                
             <% if (products.some(data => data.length !== 0)) { %>
               <button type="submit" class="btn btn-primary mx-auto d-block">Siparişi Tamamla</button>
             <% } else { %>
