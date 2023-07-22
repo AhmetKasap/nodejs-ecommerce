@@ -12,5 +12,8 @@ router.get('/basket/:id', customer.getProductId);
 router.get('/clearbasket', customer.getClearBasket)
 router.post('/iyzico', customer.iyzicoTransaction)
 
+router.post('/successOrder/', customer.postSuccessOrder)
 
-module.exports = router
+
+
+module.exports = router 

@@ -50,9 +50,16 @@ const getClearBasket = (req,res) => {
 }
 
 
+const iyzipay = new Iyzipay({
+    apiKey: process.env.IYZICO_API_KEY,
+    secretKey: process.env.IYZICO_SECRET_KEY,
+    uri: 'https://sandbox-api.iyzipay.com'
+});
 
+let getToken = ''
 
 const iyzicoTransaction = (req,res) => {
+    //?kullanıcı bilgileri ve sepetteki ürünler veritabanına kaydedildi.
     const customerInfo = new CustomerInfo ({
         username : req.body.username,
         usersurname : req.body.usersurname,
@@ -96,16 +103,7 @@ const iyzicoTransaction = (req,res) => {
     console.log(totalPrice)
 
     
-
     
-
-    
-
-    const iyzipay = new Iyzipay({
-        apiKey: process.env.IYZICO_API_KEY,
-        secretKey: process.env.IYZICO_SECRET_KEY,
-        uri: 'https://sandbox-api.iyzipay.com'
-    });
     
     const data = {
         locale: Iyzipay.LOCALE.TR,
@@ -115,7 +113,8 @@ const iyzicoTransaction = (req,res) => {
         installment: '1',
         paymentChannel: Iyzipay.PAYMENT_CHANNEL.WEB,
         paymentGroup: Iyzipay.PAYMENT_GROUP.PRODUCT,
-        callbackUrl: 'localhost:3000/successOrder',
+        callbackUrl : "http://localhost:3000/successOrder",
+        
         buyer: {
             id: '1',
             name: req.body.username,
@@ -144,18 +143,56 @@ const iyzicoTransaction = (req,res) => {
         basketItems: basketItems
     };
      
-    iyzipay.checkoutFormInitialize.create(data, function (err, result) {
-        console.log(err, result);
-        const checkoutFormContent = result.checkoutFormContent
-        console.log(checkoutFormContent)
-        res.render('iyzico', {checkoutFormContent:checkoutFormContent})
-      
+    //* iyzico formu 
+    iyzipay.checkoutFormInitialize.create(data, async function (err, result) {
+        const checkoutFormContent = await result.checkoutFormContent
+        await res.render('iyzico', {checkoutFormContent:checkoutFormContent})
+        
+
+        //* dönenen script form metodundaki tokeni yakaladık.
+        var tokenRegex = /token:"(.*?)"/;
+        var match = checkoutFormContent.match(tokenRegex);
+        if (match && match[1]) {
+            var token = match[1];
+            console.log("Alınan token:", token);
+            getToken = token
+            
+        } else {
+            console.log("Token bulunamadı.");
+        }
+        
+        
     });
+
+   
+}
+
+//*calbackUrl de ki linke post atıldı 
+//*ödeme işlemi başarılıysa, status değeri = success döndü. ve kullanıcıya ödeme başarlı sayfası gösterildi
+const postSuccessOrder = async (req, res) => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            iyzipay.checkoutForm.retrieve({
+                locale: Iyzipay.LOCALE.TR,
+                token: getToken
+            }, (err, result) => {
+                if (err) {
+                    reject(err);
+                    res.send('ödeme esnasında bir hata oluştu')
+                } else {
+                    resolve(result);
+                    res.render('success-order')
+                }
+            });
+        });
+
+        console.log(result);
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 
-
-
 module.exports = {
-    getIndex, getCategories, getBasket,getProductId,getClearBasket,iyzicoTransaction
+    getIndex, getCategories, getBasket,getProductId,getClearBasket,iyzicoTransaction,postSuccessOrder
 }
