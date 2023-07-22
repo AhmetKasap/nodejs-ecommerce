@@ -16,4 +16,4 @@ npm install
 
 set .env == IYZICO_API_KEY, IYZICO_SECRET_KEY,MONGODB_URL,JWT_SECRET,MAIL_PASSWORD_KEY
 
-![Uploading 1.png…]()
+https://github.com/AhmetKasap/nodejs-mongodb-ecommerce/blob/master/1.png
