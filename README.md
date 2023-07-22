@@ -9,7 +9,7 @@ Kullanıcı oturum yönetimi için Json Web Token (JWT) kullandım.
 
 Sanal post entegrasyonu için İyzico kullandım.
 
-
+-----------------------------------------------------------------------
 
 
 npm install 
